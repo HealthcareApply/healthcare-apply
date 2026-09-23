@@ -1,0 +1,3 @@
+const base='https://api.stripe.com/v1';
+function form(data:Record<string,string|number|boolean|undefined>){const p=new URLSearchParams();for(const[k,v]of Object.entries(data))if(v!==undefined)p.set(k,String(v));return p}
+export async function stripePost(path:string,data:Record<string,string|number|boolean|undefined>){if(!process.env.STRIPE_SECRET_KEY)throw new Error('Stripe is not configured');const r=await fetch(`${base}${path}`,{method:'POST',headers:{Authorization:`Bearer ${process.env.STRIPE_SECRET_KEY}`,'Content-Type':'application/x-www-form-urlencoded'},body:form(data)});const j=await r.json();if(!r.ok)throw new Error(j?.error?.message||'Stripe request failed');return j}

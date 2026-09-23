@@ -1,0 +1,4 @@
+import {Document,Packer,Paragraph,TextRun} from 'docx';import PDFDocument from 'pdfkit';
+function lines(text:string){return text.replace(/\r/g,'').split('\n');}
+export async function makeDocx(title:string,text:string){const children=[new Paragraph({children:[new TextRun({text:title,bold:true,size:28})]}),...lines(text).map(x=>new Paragraph({children:[new TextRun({text:x,size:22})],spacing:{after:80}}))];return Packer.toBuffer(new Document({sections:[{properties:{},children}]}));}
+export async function makePdf(title:string,text:string){return await new Promise<Buffer>((resolve,reject)=>{const d=new PDFDocument({size:'LETTER',margins:{top:54,bottom:54,left:54,right:54}});const chunks:Buffer[]=[];d.on('data',x=>chunks.push(x));d.on('end',()=>resolve(Buffer.concat(chunks)));d.on('error',reject);d.font('Helvetica-Bold').fontSize(14).text(title);d.moveDown(.7);d.font('Helvetica').fontSize(10.5).text(text,{lineGap:2});d.end();});}

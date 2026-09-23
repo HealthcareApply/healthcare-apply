@@ -1,0 +1,35 @@
+{
+  "name": "healthcare-apply-2",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "typecheck": "tsc --noEmit",
+    "preflight": "node scripts/preflight.mjs",
+    "verify": "npm run typecheck && npm run build"
+  },
+  "dependencies": {
+    "@supabase/ssr": "^0.5.2",
+    "@supabase/supabase-js": "^2.45.4",
+    "next": "^15.5.0",
+    "openai": "^5.20.0",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0",
+    "zod": "^3.23.8",
+    "pdf-parse": "^1.1.1",
+    "mammoth": "^1.9.0",
+    "cheerio": "^1.0.0",
+    "docx": "^9.5.1",
+    "pdfkit": "^0.17.2"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.0",
+    "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.0.0",
+    "typescript": "^5.7.2",
+    "@types/pdf-parse": "^1.1.4",
+    "@types/pdfkit": "^0.17.3"
+  }
+}

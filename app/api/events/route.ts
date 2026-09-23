@@ -1,0 +1,2 @@
+import{NextResponse}from'next/server';import{createClient}from'@/lib/supabase/server';
+export async function POST(req:Request){const s=await createClient();const{data:{user}}=await s.auth.getUser();if(!user)return NextResponse.json({error:'Unauthorized'},{status:401});const b=await req.json();if(!/^[a-z0-9_.-]{2,80}$/i.test(String(b.event_name||'')))return NextResponse.json({error:'Invalid event'},{status:400});await s.from('product_events').insert({user_id:user.id,event_name:b.event_name,properties:b.properties||{}});return NextResponse.json({ok:true})}
